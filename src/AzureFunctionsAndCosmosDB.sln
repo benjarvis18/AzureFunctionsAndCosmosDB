@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PositionReportPublisher", "PositionReportPublisher\PositionReportPublisher.csproj", "{A68BEDE7-006F-45AD-9647-F9D71B74121C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFunctionsAndCosmosDB.Domain", "AzureFunctionsAndCosmosDB.Domain\AzureFunctionsAndCosmosDB.Domain.csproj", "{E228553C-55AE-4246-B03C-1FF802D9554B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PositionReportFunctions", "PositionReportFunctions\PositionReportFunctions.csproj", "{98DF761A-F017-42DF-906B-4FF837F2E874}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AircraftPositionWebApp.Server", "AircraftPositionWebApp.Server\AircraftPositionWebApp.Server.csproj", "{9977D08B-82EF-494D-9E4F-DBAD4AD62461}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AircraftPositionWebApp.Client", "AircraftPositionWebApp.Client\AircraftPositionWebApp.Client.csproj", "{A4CB7142-2367-4589-B1C1-47BAC4A41661}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A68BEDE7-006F-45AD-9647-F9D71B74121C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A68BEDE7-006F-45AD-9647-F9D71B74121C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A68BEDE7-006F-45AD-9647-F9D71B74121C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A68BEDE7-006F-45AD-9647-F9D71B74121C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E228553C-55AE-4246-B03C-1FF802D9554B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E228553C-55AE-4246-B03C-1FF802D9554B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E228553C-55AE-4246-B03C-1FF802D9554B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E228553C-55AE-4246-B03C-1FF802D9554B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98DF761A-F017-42DF-906B-4FF837F2E874}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98DF761A-F017-42DF-906B-4FF837F2E874}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98DF761A-F017-42DF-906B-4FF837F2E874}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98DF761A-F017-42DF-906B-4FF837F2E874}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9977D08B-82EF-494D-9E4F-DBAD4AD62461}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9977D08B-82EF-494D-9E4F-DBAD4AD62461}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9977D08B-82EF-494D-9E4F-DBAD4AD62461}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9977D08B-82EF-494D-9E4F-DBAD4AD62461}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4CB7142-2367-4589-B1C1-47BAC4A41661}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4CB7142-2367-4589-B1C1-47BAC4A41661}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4CB7142-2367-4589-B1C1-47BAC4A41661}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4CB7142-2367-4589-B1C1-47BAC4A41661}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6644A06E-02A0-49A7-98FB-D25FC9D24680}
+	EndGlobalSection
+EndGlobal

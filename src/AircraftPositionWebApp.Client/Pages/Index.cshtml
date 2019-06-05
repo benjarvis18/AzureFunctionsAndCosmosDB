@@ -1,0 +1,61 @@
+﻿@using Blazor.Extensions;
+@using AzureFunctionsAndCosmosDB.Domain.Models
+@using System.Collections.Concurrent
+@using Newtonsoft.Json
+@page "/"
+@inject  IJSRuntime JSRuntime
+
+<div id="map-container" class="float-left col-md-6 no-gutters">
+    <div id="map">
+
+    </div>
+</div>
+
+<div class="float-right col-md-6 no-gutters">
+    <table class="table table-dark">    
+        <tr>
+            <th>Flight Number</th>
+            <th>Departure Airport</th>
+            <th>Current Altitude</th>
+            <th>Current Track</th>
+            <th>Distance From Us</th>
+            <th>Current Lat/Long</th>
+        </tr>
+        @foreach (var aircraft in aircraft.OrderBy(a => a.Value.DistanceFromUs))
+        {
+        <tr>
+            <td>@aircraft.Value?.FlightNumber</td>
+            <td>@aircraft.Value?.DepartureAirport</td>
+            <td>@aircraft.Value?.CurrentAltitude.ToString("##,#")</td>
+            <td>@aircraft.Value?.CurrentTrueTrackDegrees</td>
+            <td>@aircraft.Value?.DistanceFromUs</td>
+            <td>@string.Concat(aircraft.Value?.CurrentLatitude, ",", aircraft.Value?.CurrentLongitude)</td>
+        </tr>
+        }
+    </table>
+</div>
+
+@functions {
+    string message;
+    ConcurrentDictionary<string, Aircraft> aircraft = new ConcurrentDictionary<string, Aircraft>();
+
+    HubConnection connection;
+
+    protected override async Task OnInitAsync()
+    {
+        connection = new HubConnectionBuilder().WithUrl("https://positionreportsfcn.azurewebsites.net/api/").Build();
+        connection.On<Aircraft>("newMessage", this.OnMessage);
+        await connection.StartAsync();
+
+        await JSRuntime.InvokeAsync<object>("GetMap");
+    }
+
+    async Task OnMessage(Aircraft message)
+    {
+        aircraft.AddOrUpdate(message.Registration, message, (key, oldValue) => oldValue = message);
+
+        await JSRuntime.InvokeAsync<object>("ProcessFlightData", message.TransponderIdentifier, message.CurrentLongitude, message.CurrentLatitude, message.FlightNumber, message.CurrentAltitude, message.CurrentTrueTrackDegrees);
+
+        StateHasChanged();
+    }
+}

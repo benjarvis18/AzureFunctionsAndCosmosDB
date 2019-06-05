@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width">
+    <title>AircraftPositionWebApp</title>
+    <base href="/" />
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/site.css" rel="stylesheet" />
+
+    <!-- Add references to the Azure Maps Map control JavaScript and CSS files. -->
+    <link rel="stylesheet" href="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.css" type="text/css">
+    <script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.js"></script>
+
+    <!-- Add a reference to the Azure Maps Services Module JavaScript file. -->
+    <script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas-service.min.js"></script>
+
+    <script>
+        let datasource;
+        let planes = [];
+
+        window.ProcessFlightData = (transponderId, longitude, latitude, callsign, altitude, trueTrack) => {
+
+            var newFlightPin = new atlas.Shape(new atlas.data.Point([longitude, latitude]), transponderId);
+            newFlightPin.addProperty('name', callsign);
+            newFlightPin.addProperty('altitude', altitude);
+
+            var rotation = trueTrack - 90;
+            if (rotation < 0) {
+                rotation = 360 + rotation;
+            }
+
+            newFlightPin.addProperty('rotation', rotation);
+
+            planes[transponderId] = newFlightPin;
+            datasource.setShapes(Object.values(planes));
+        }
+
+        window.GetMap = () => {
+            //Instantiate a map object
+            var map = new atlas.Map("map", {
+                //Add your Azure Maps subscription key to the map SDK. Get an Azure Maps key at https://azure.com/maps
+                authOptions: {
+                    authType: 'subscriptionKey',
+                    subscriptionKey: 'sXD5qMB11wRuXQKHrhjiWWFzROihZbWsSh0cxGAl5gA'
+                },
+                style: "night",
+                center: [-1.422748, 50.961349],
+                zoom: 7
+            });
+
+            map.events.add('ready', function () {
+
+                map.imageSprite.add('plane-icon', 'https://posrepwebstorage.blob.core.windows.net/icons/plane-solid.svg');
+
+                //Create a data source and add it to the map
+                datasource = new atlas.source.DataSource();
+                map.sources.add(datasource);
+
+                //Create a symbol layer using the data source and add it to the map
+                map.layers.add(
+                    new atlas.layer.SymbolLayer(datasource, null, {
+                        iconOptions: {
+                            ignorePlacement: true,
+                            allowOverlap: true,
+                            image: 'plane-icon',
+                            size: 0.2,
+                            rotation: ['get', 'rotation']
+                        },
+                        textOptions: {
+                            textField: ['concat', ['to-string', ['get', 'name']], '- ', ['get', 'altitude']],
+                            color: '#FFFFFF',
+                            offset: [2, 2]
+                        }
+                    }));       
+            });
+        }
+    </script>
+</head>
+<body>
+    <app>Loading...</app>
+
+    <script src="_framework/blazor.webassembly.js"></script>
+</body>
+</html>
